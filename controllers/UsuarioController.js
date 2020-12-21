@@ -10,7 +10,8 @@ exports.login = async(req, res, next) =>{
         if (usuario) {
             const passwordIsValid = bcrypt.compareSync(req.body.password, usuario.password);
             if (passwordIsValid) {
-                const token = await tokenServices.encode(usuario);  
+                const token = await tokenServices.encode(usuario); 
+               // const token = token.encode(Usuario) 
                     res.status(200).send({
                     auth: true,
                     tokenReturn: token,

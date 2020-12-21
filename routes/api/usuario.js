@@ -10,9 +10,9 @@ const bcrypt = require('bcryptjs');
 const auth = require('../../middlewares/auth')
 
 //listar - registrar y actualizar // llamado al middleware
-router.get('/list', userController.list);
+router.get('/list',  userController.list);
 router.post('/register',  userController.register);
-router.put('/update', userController.update);
+router.put('/update',  userController.update);
 
 //autenticar
 router.post('/login',userController.login);

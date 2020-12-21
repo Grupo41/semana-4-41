@@ -11,12 +11,12 @@ const checkToken = async (token) =>{
     } catch (error) {
         
     }
-    const user = await models.Usuario.findOne({where:{
+    const Usuario = await models.Usuario.findOne({where:{
         id: localID,
         estado: 1
     }});
-    if(user){
-        const token = encode (user);
+    if(Usuario){
+        const token = encode (Usuario);
         return {
             token,
             rol: Usuario.rol
@@ -27,13 +27,13 @@ const checkToken = async (token) =>{
 };
 
 module.exports = {
-    encode: async (user) => {
+    encode: async (Usuario) => {
         const token = jwt.sign({
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            rol: user.rol,
-            status: user.estado
+            id: Usuario.id,
+            name: Usuario.name,
+            email: Usuario.email,
+            rol: Usuario.rol,
+            status: Usuario.estado
         }, 'config.secret', {
             expiresIn: 86400,
         }
@@ -42,13 +42,13 @@ module.exports = {
     },
     decode: async (token) => {
         try {
-            const {id} = await jwt.verify(token, 'config.secret')
-            const user = await models.Usuario.findOne({where: {
+            const { id } = await jwt.verify(token, 'config.secret')
+            const Usuario = await models.Usuario.findOne({where: {
                 id: id,
                 estado: 1
             }});
-            if(user){
-                return user;
+            if(Usuario){
+                return Usuario;
             }else{
                 return false;
             }
